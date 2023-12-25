@@ -5,19 +5,19 @@ import Square from './Square'
 const Board = () => {
     // getter, setter
     const [squares, setSquares] = useState(Array(9).fill(null));
+    const [isNext, setIsNext] = useState(true);
+    const status = `Next player: ${isNext ? 'X' : 'O'}`;
 
     const handleClick = (i) => {
         const clickSquares = squares.slice();
-        clickSquares[i] = 'X';
+        clickSquares[i] = isNext ? 'X' : 'O';
+        setIsNext(!isNext);
         setSquares(clickSquares);
     };
 
     const renderSquare = (i) =>  {
         return <Square value={squares[i]} onClick={() => handleClick(i)} />;
     };
-
-    // 제목
-    const status = 'Next player: X, O';
 
     return (
         <div>
