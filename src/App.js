@@ -27,8 +27,15 @@ export default function App() {
         return null;
     };
 
+    // 현재 위치 확인
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    // 경기 상태 확인
+    let status = `Next player: ${isNext ? 'X' : 'O'}`;
+    if (winner) {
+        status = `Winner : ${winner}`;
+    }
 
     const handleClick = (i) => {
         const newSquares = current.squares.slice();
@@ -41,10 +48,16 @@ export default function App() {
         setHistory([...history, { squares: newSquares }]);
     };
 
-    let status = `Next player: ${isNext ? 'X' : 'O'}`;
-    if (winner) {
-        status = `Winner : ${winner}`;
-    }
+    // 이동 기록
+    const moves = history.map((step, move) => {
+        const desc = move ? `Go to move #${move}` : `Go to Game Start`;
+
+        return (
+            <li>
+                <button>{desc}</button>
+            </li>
+        )
+    })
 
     return (
         <div className='game'>
@@ -53,6 +66,9 @@ export default function App() {
                 <Board squares={current.squares} onClick={(i) => handleClick(i)} />
             </div>
             <div className='game-info`'>game info</div>
+            <div>
+                <ol>{moves}</ol>
+            </div>
         </div>
     )
 }
