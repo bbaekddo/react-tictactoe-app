@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 export default function App() {
     const [history, setHistory] = useState([{ squares: Array(9).fill(null)}]);
     const [isNext, setIsNext] = useState(true);
+    const [stepNumber, setStepNumber] = useState(0);
 
     // 승자 확인
     const calculateWinner = (squares) => {
@@ -37,24 +38,36 @@ export default function App() {
         status = `Winner : ${winner}`;
     }
 
+    // 클릭 이벤트
     const handleClick = (i) => {
-        const newSquares = current.squares.slice();
+        const newHistory = history.slice(0, stepNumber + 1);
+        const newCurrent = newHistory[newHistory.length - 1];
+        const newSquares = newCurrent.squares.slice();
 
         // 종료 조건
         if (calculateWinner(newSquares) || newSquares[i]) return;
 
         newSquares[i] = isNext ? 'X' : 'O';
         setIsNext((isNext) => !isNext);
-        setHistory([...history, { squares: newSquares }]);
+        setHistory([...newHistory, { squares: newSquares }]);
+
+        // 현재 기록 위치로 업데이트
+        setStepNumber(newHistory.length);
     };
 
-    // 이동 기록
+    // jumpTo 함수
+    const jumpTo = (stepNumber) => {
+        setStepNumber(stepNumber);
+        setIsNext(stepNumber % 2 === 0);
+    };
+
+    // * 이동 기록
     const moves = history.map((step, move) => {
         const desc = move ? `Go to move #${move}` : `Go to Game Start`;
 
         return (
-            <li>
-                <button>{desc}</button>
+            <li key={move}>
+                <button onClick={() => jumpTo(move)}>{desc}</button>
             </li>
         )
     })
