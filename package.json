@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "bbaekddo",
   "private": true,
+  "homepage": "https://bbaekddo.github.io/react-tictactoe-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -16,7 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -f",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^6.2.0"
   }
 }
