@@ -1,5 +1,6 @@
 import Board from './components/Board';
 import React, { useState } from 'react';
+import './App.css';
 
 export default function App() {
     const [history, setHistory] = useState([{ squares: Array(9).fill(null)}]);
@@ -67,7 +68,7 @@ export default function App() {
 
         return (
             <li key={move}>
-                <button onClick={() => jumpTo(move)}>{desc}</button>
+                <button className='move-button' onClick={() => jumpTo(move)}>{desc}</button>
             </li>
         )
     })
@@ -80,7 +81,7 @@ export default function App() {
             </div>
             <div className='game-info`'>game info</div>
             <div>
-                <ol>{moves}</ol>
+                <ol style={{listStyle: 'none'}}>{moves}</ol>
             </div>
         </div>
     )
